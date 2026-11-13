@@ -1,0 +1,46 @@
+//dotnet add package MathNet.Numerics
+using System;
+using MathNet.Numerics.LinearAlgebra;
+
+class Program
+{
+    static void Main()
+    {
+        // Dataset: Intercept + Age + BP + Weight + Height + Sugar + Cholesterol
+        double[,] Xdata = {
+            {1, 25, 120, 65, 170, 90, 180},
+            {1, 30, 125, 70, 172, 95, 190},
+            {1, 35, 130, 75, 174, 100, 200},
+            {1, 40, 135, 80, 176, 105, 210},
+            {1, 45, 140, 85, 178, 110, 220},
+            {1, 50, 145, 90, 180, 115, 230}
+        };
+
+        double[] ydata = { 3200, 3500, 3800, 4200, 4600, 5000 };
+
+        // Create matrices
+        var X = Matrix<double>.Build.DenseOfArray(Xdata);
+        var y = Vector<double>.Build.DenseOfArray(ydata);
+
+        // Normal Equation: m = (X^T X)^(-1) X^T y
+        var Xt = X.Transpose();
+        var XtX = Xt * X;
+        var XtX_inv = XtX.Inverse();
+        var XtY = Xt * y;
+        var m = XtX_inv * XtY;
+
+        // Output coefficients
+        Console.WriteLine("Intercept: " + m[0]);
+        for (int i = 1; i < m.Count; i++)
+        {
+            Console.WriteLine($"Slope for variable {i}: {m[i]}");
+        }
+
+        // Predict for a new sample
+        double[] newSample = {1, 42, 138, 82, 177, 107, 215}; // Example
+        var newVector = Vector<double>.Build.DenseOfArray(newSample);
+        double predictedPremium = m.DotProduct(newVector);
+
+        Console.WriteLine("\nPredicted Premium for new sample: " + predictedPremium);
+    }
+}
