@@ -5,10 +5,12 @@ using Microsoft.Extensions.AI;
 var settings = LabArgs.Parse(args);
 IChatClient chat;
 IEmbeddingGenerator<string, Embedding<float>> embedder;
+IVectorStore store;
 try
 {
     chat = ChatFactory.Create(settings);
     embedder = ChatFactory.CreateEmbeddings(settings);
+    store = VectorStoreFactory.Create(settings.Store, settings.Connection);
 }
 catch (Exception ex)
 {
@@ -16,13 +18,14 @@ catch (Exception ex)
     return;
 }
 
-var rag = new RagPipeline(embedder);
+var rag = new RagPipeline(embedder, store);
 await rag.IndexAsync(CompanyHandbook.Text);
 
-Console.WriteLine($"Provider={settings.Provider}  embeddings={(settings.RealEmbeddings ? settings.EmbedModel : "HashBag toy")}");
-Console.WriteLine("RAG = Retrieval Augmented Generation (not 'reward').");
-Console.WriteLine("llama3.2 cannot embed. Real vectors: ollama pull nomic-embed-text then --real-embeddings");
+Console.WriteLine($"chat={settings.Provider}/{settings.ChatModel}  embed={settings.Embed}  store={store.Name}");
+Console.WriteLine("RAG steps: chunk → embed → store → search → stuff hits into the prompt → llama3.2.");
+Console.WriteLine("Not needed for RAG: function calling, Semantic Kernel, MCP, agents.");
 Console.WriteLine("Try: How many leave days?  |  What is the meal cap?  |  What is the CEO salary?");
+Console.WriteLine("Flags: --store memory|sqlite|qdrant|postgres|sqlserver   --embed hashbag|ollama|openai");
 Console.WriteLine("Empty line quits.\n");
 
 while (true)
@@ -37,13 +40,24 @@ while (true)
         var (answer, hits) = await rag.AskAsync(chat, input);
         Console.WriteLine("Retrieved:");
         foreach (var hit in hits)
-            Console.WriteLine($"  {hit.Score:0.00}  {hit.Chunk.Text.Replace("\n", " ")[..Math.Min(90, hit.Chunk.Text.Length)]}");
+        {
+            var preview = hit.Chunk.Text.Replace("\n", " ");
+            if (preview.Length > 90)
+                preview = preview[..90];
+            Console.WriteLine($"  {hit.Score:0.00}  {preview}");
+        }
+
         Console.WriteLine("AI: " + answer + "\n");
     }
     catch (Exception ex)
     {
         Console.WriteLine("Error: " + ex.Message);
-        if (settings.RealEmbeddings)
-            Console.WriteLine("Is nomic-embed-text pulled? Check with 00-check.\n");
+        if (settings.Embed == "ollama")
+            Console.WriteLine("Need: ollama pull nomic-embed-text\n");
     }
 }
+
+if (store is IAsyncDisposable ad)
+    await ad.DisposeAsync();
+else if (store is IDisposable d)
+    d.Dispose();

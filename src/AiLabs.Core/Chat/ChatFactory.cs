@@ -26,16 +26,19 @@ public static class ChatFactory
     public static IChatClient CreateWithTools(LabSettings settings) =>
         Create(settings).AsBuilder().UseFunctionInvocation().Build();
 
-    public static IEmbeddingGenerator<string, Embedding<float>> CreateEmbeddings(LabSettings settings)
+    public static IEmbeddingGenerator<string, Embedding<float>> CreateEmbeddings(LabSettings settings) => settings.Embed switch
     {
-        if (!settings.RealEmbeddings)
-            return new Rag.HashBagEmbeddingGenerator();
+        "hashbag" or "toy" or "hash" => new Rag.HashBagEmbeddingGenerator(),
+        "ollama" => new OllamaApiClient(new Uri(settings.OllamaUrl), settings.EmbedModel),
+        "openai" => CreateOpenAiEmbeddings(settings),
+        _ => throw new InvalidOperationException("Unknown --embed. Use hashbag | ollama | openai.")
+    };
 
-        if (settings.Provider is "openai" or "azure" or "github")
-            throw new InvalidOperationException(
-                "This lab uses Ollama for real embeddings. Run: ollama pull nomic-embed-text then --real-embeddings (with --provider ollama).");
-
-        return new OllamaApiClient(new Uri(settings.OllamaUrl), settings.EmbedModel);
+    private static IEmbeddingGenerator<string, Embedding<float>> CreateOpenAiEmbeddings(LabSettings settings)
+    {
+        var key = Env("OPENAI_API_KEY");
+        var model = Environment.GetEnvironmentVariable("OPENAI_EMBED_MODEL") ?? "text-embedding-3-small";
+        return new OpenAIClient(key).GetEmbeddingClient(model).AsIEmbeddingGenerator();
     }
 
     private static IChatClient CreateOllama(LabSettings settings) =>

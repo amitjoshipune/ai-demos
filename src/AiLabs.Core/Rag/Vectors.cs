@@ -86,7 +86,7 @@ public sealed class HashBagEmbeddingGenerator : IEmbeddingGenerator<string, Embe
         {
             if (m.Length < 2)
                 continue;
-            var slot = (int)((uint)m.Value.GetHashCode() % Dimensions);
+            var slot = (int)(VectorCodec.StableHash(m.Value) % (uint)Dimensions);
             vector[slot] += 1f;
         }
 
@@ -106,12 +106,29 @@ public sealed class HashBagEmbeddingGenerator : IEmbeddingGenerator<string, Embe
 
 public sealed record ScoredChunk(TextChunk Chunk, float Score);
 
-public sealed class InMemoryVectorStore
+public sealed class InMemoryVectorStore : IVectorStore
 {
     private readonly List<(TextChunk Chunk, float[] Vector)> _items = [];
 
+    public string Name => "memory";
+
+    public Task EnsureAsync(int dimensions, CancellationToken cancellationToken = default) => Task.CompletedTask;
+
+    public Task ClearAsync(CancellationToken cancellationToken = default)
+    {
+        _items.Clear();
+        return Task.CompletedTask;
+    }
+
     public void Add(TextChunk chunk, ReadOnlyMemory<float> vector) =>
         _items.Add((chunk, vector.ToArray()));
+
+    public Task UpsertAsync(TextChunk chunk, ReadOnlyMemory<float> vector, CancellationToken cancellationToken = default)
+    {
+        _items.RemoveAll(i => i.Chunk.Id == chunk.Id);
+        Add(chunk, vector);
+        return Task.CompletedTask;
+    }
 
     public IReadOnlyList<ScoredChunk> Search(ReadOnlyMemory<float> query, int topK = 3)
     {
@@ -122,4 +139,7 @@ public sealed class InMemoryVectorStore
             .Take(topK)
             .ToList();
     }
+
+    public Task<IReadOnlyList<ScoredChunk>> SearchAsync(ReadOnlyMemory<float> query, int topK, CancellationToken cancellationToken = default) =>
+        Task.FromResult(Search(query, topK));
 }
