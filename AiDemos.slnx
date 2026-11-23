@@ -1,0 +1,40 @@
+<Solution>
+  <Folder Name="/00-check/">
+    <Project Path="00-check/CheckOllama/CheckOllama.csproj" />
+  </Folder>
+  <Folder Name="/01-local-chat/" />
+  <Folder Name="/01-local-chat/dotnet/">
+    <Project Path="01-local-chat/dotnet/ConsoleChat/ConsoleChat.csproj" />
+  </Folder>
+  <Folder Name="/02-cloud-switch/">
+    <Project Path="02-cloud-switch/ChatSwitch/ChatSwitch.csproj" />
+  </Folder>
+  <Folder Name="/03-prompts/">
+    <Project Path="03-prompts/Prompts/Prompts.csproj" />
+  </Folder>
+  <Folder Name="/05-tools/">
+    <Project Path="05-tools/ToolCalling/ToolCalling.csproj" />
+  </Folder>
+  <Folder Name="/06-rag/">
+    <Project Path="06-rag/LocalRag/LocalRag.csproj" />
+  </Folder>
+  <Folder Name="/07-agent/">
+    <Project Path="07-agent/SimpleAgent/SimpleAgent.csproj" />
+  </Folder>
+  <Folder Name="/08-semantic-kernel/">
+    <Project Path="08-semantic-kernel/SkPlugins/SkPlugins.csproj" />
+  </Folder>
+  <Folder Name="/09-mcp-server/">
+    <Project Path="09-mcp-server/DeskMcp/DeskMcp.csproj" />
+  </Folder>
+  <Folder Name="/10-mcp-client/">
+    <Project Path="10-mcp-client/DeskMcpClient/DeskMcpClient.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/AiLabs.Core/AiLabs.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AiLabs.Tests/AiLabs.Tests.csproj" />
+  </Folder>
+  <Project Path="04-linearRegression/04-linearRegression.csproj" />
+</Solution>
