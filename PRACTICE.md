@@ -37,7 +37,7 @@ You already have **01** and **02**. This branch adds **00** and **03–10**.
 | 2 | `02-cloud-switch` | `IChatClient` so the app is not glued to one vendor | already in repo | “Same loop, different client: Ollama or GitHub Models.” | no | no |
 | 3 | `03-prompts` | System prompt, few-shot, JSON, “say I don’t know” | `dotnet run --project 03-prompts/Prompts` | “Prompt engineering is instructions + examples, not a framework.” | no | no |
 | 4 | `05-tools` | Tool schema → model call → execute → second model call | `dotnet run --project 05-tools/ToolCalling` | “Tool calling is the model choosing a function, not the function calling the model.” | no | no |
-| 5 | `06-rag` | Chunk → embed → cosine top-k → grounded answer | `dotnet run --project 06-rag/LocalRag` then `--real-embeddings` | “RAG retrieves text first. Fine-tuning is the wrong default.” | no | no |
+| 5 | `06-rag` | Chunk → embed → store → prompt → llama3.2. SK/MCP/tools not needed. Details: `06-rag/RAG.md` | `dotnet run --project 06-rag/LocalRag` then `--store sqlite` | “RAG retrieves text first. Fine-tuning is the wrong default.” | no | no |
 | 6 | `07-agent` | Agent = tool loop with a goal, not a chatbot | `dotnet run --project 07-agent/SimpleAgent` | “Chat is one reply. An agent keeps going until the goal is done.” | no | no |
 | 7 | `08-semantic-kernel` | Kernel + plugins = same tools, SK API | `dotnet run --project 08-semantic-kernel/SkPlugins` | “SK is optional orchestration. I can do the same with `IChatClient`.” | **yes** | no |
 | 8 | `09-mcp-server` | MCP server exposes tools over stdio | started by lab 10 | “The server does not talk to the LLM. It only runs tools.” | no | **server** |

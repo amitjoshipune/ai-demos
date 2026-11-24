@@ -55,6 +55,32 @@ public class RagTests
     }
 
     [Fact]
+    public async Task Sqlite_store_round_trips_the_handbook()
+    {
+        var path = Path.Combine(Path.GetTempPath(), "rag-test-" + Guid.NewGuid().ToString("n") + ".db");
+        try
+        {
+            using var store = new SqliteVectorStore(path);
+            var rag = new RagPipeline(new HashBagEmbeddingGenerator(), store);
+            await rag.IndexAsync(CompanyHandbook.Text);
+            var hits = await rag.RetrieveAsync("how many annual leave days do employees get?");
+            Assert.Contains(hits, h => h.Chunk.Text.Contains("20 days"));
+        }
+        finally
+        {
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+    }
+
+    [Fact]
+    public void Store_factory_rejects_unknown_names()
+    {
+        var ex = Assert.Throws<InvalidOperationException>(() => VectorStoreFactory.Create("pinecone", null));
+        Assert.Contains("sqlite", ex.Message);
+    }
+
+    [Fact]
     public async Task Rag_pipeline_refuses_facts_not_in_the_handbook()
     {
         var rag = new RagPipeline(new HashBagEmbeddingGenerator());

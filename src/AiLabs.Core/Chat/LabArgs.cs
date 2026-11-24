@@ -7,7 +7,10 @@ public sealed record LabSettings(
     string ChatModel,
     string EmbedModel,
     bool RealEmbeddings,
-    string? Question);
+    string? Question,
+    string Store = "memory",
+    string Embed = "hashbag",
+    string? Connection = null);
 
 public static class LabArgs
 {
@@ -17,13 +20,18 @@ public static class LabArgs
             ?? Environment.GetEnvironmentVariable("AI_PROVIDER")
             ?? "ollama";
 
+        var real = HasFlag(args, "--real-embeddings");
+        var embed = (Get(args, "--embed") ?? (real ? "ollama" : "hashbag")).Trim().ToLowerInvariant();
         return new LabSettings(
             Provider: provider.Trim().ToLowerInvariant(),
             OllamaUrl: Get(args, "--ollama-url") ?? "http://localhost:11434",
             ChatModel: Get(args, "--model") ?? "llama3.2",
             EmbedModel: Get(args, "--embed-model") ?? "nomic-embed-text",
-            RealEmbeddings: HasFlag(args, "--real-embeddings"),
-            Question: FirstPositional(args));
+            RealEmbeddings: real || embed == "ollama",
+            Question: FirstPositional(args),
+            Store: (Get(args, "--store") ?? "memory").Trim().ToLowerInvariant(),
+            Embed: embed,
+            Connection: Get(args, "--connection") ?? Environment.GetEnvironmentVariable("RAG_CONNECTION"));
     }
 
     public static string? Get(string[] args, string name)

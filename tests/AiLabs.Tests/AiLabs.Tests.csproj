@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\AiLabs.Core\AiLabs.Core.csproj" />
+    <ProjectReference Include="..\..\src\AiLabs.Rag.Stores\AiLabs.Rag.Stores.csproj" />
   </ItemGroup>
 
 </Project>

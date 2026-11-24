@@ -481,3 +481,8 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 ./venv
+
+# Local RAG sqlite files
+rag-handbook.db
+*.db-shm
+*.db-wal
