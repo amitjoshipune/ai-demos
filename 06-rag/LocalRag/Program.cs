@@ -24,6 +24,7 @@ await rag.IndexAsync(CompanyHandbook.Text);
 Console.WriteLine($"chat={settings.Provider}/{settings.ChatModel}  embed={settings.Embed}  store={store.Name}");
 Console.WriteLine("RAG steps: chunk → embed → store → search → stuff hits into the prompt → llama3.2.");
 Console.WriteLine("Not needed for RAG: function calling, Semantic Kernel, MCP, agents.");
+Console.WriteLine("Your Dell: --embed ollama --store postgres   (or --store sqlserver). Connection: RAG_CONNECTION.");
 Console.WriteLine("Try: How many leave days?  |  What is the meal cap?  |  What is the CEO salary?");
 Console.WriteLine("Flags: --store memory|sqlite|qdrant|postgres|sqlserver   --embed hashbag|ollama|openai");
 Console.WriteLine("Empty line quits.\n");

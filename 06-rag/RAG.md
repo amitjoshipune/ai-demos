@@ -42,17 +42,32 @@ That last prompt is just text. Offline LLM is correct.
 
 Qdrant: `docker run -p 6333:6333 qdrant/qdrant`
 
-Postgres: `docker run -e POSTGRES_PASSWORD=rag -p 5432:5432 pgvector/pgvector:pg16`  
-then `--connection "Host=localhost;Username=postgres;Password=rag;Database=postgres"`
+Postgres: set `RAG_CONNECTION` to your Docker string (do not commit the password).
+The lab tries `CREATE EXTENSION vector`. If that image is plain Postgres (no pgvector), it stores BYTEA and scores cosine in C#.
 
-## Commands (offline `llama3.2`)
+SQL Server 2019 (`LocalDell`): `--store sqlserver` with `RAG_CONNECTION`. Vectors are VARBINARY + cosine in C#. You do not need SQL Server 2025 VECTOR type.
+
+## Commands (offline `llama3.2` + `nomic-embed-text`)
+
+Same idea as the DEV.to post (Ollama + embeddings + a DB). That post uses Gemma 3, mxbai-embed-large (1024-d), Semantic Kernel, and Pokémon. This lab uses **llama3.2**, **nomic-embed-text (768-d)**, **IChatClient**, and the Contoso handbook. SK is not required.
 
 ```bat
-dotnet run --project 06-rag/LocalRag
-dotnet run --project 06-rag/LocalRag -- --store sqlite
-dotnet run --project 06-rag/LocalRag -- --embed ollama --store sqlite
-dotnet run --project 06-rag/LocalRag -- --store qdrant
+REM prove Ollama (you already did):
+curl http://localhost:11434/api/tags
+
+REM 1) no database
+dotnet run --project 06-rag/LocalRag -- --embed ollama
+
+REM 2) Docker Postgres (plain Postgres is OK; pgvector is a bonus)
+set RAG_CONNECTION=Host=localhost;Port=5432;Database=YOUR_DB;Username=YOUR_USER;Password=YOUR_PASSWORD
+dotnet run --project 06-rag/LocalRag -- --embed ollama --store postgres
+
+REM 3) worst case: local SQL Server 2019
+set RAG_CONNECTION=Server=YOUR_PC\YOUR_INSTANCE;Database=YOUR_DB;Trusted_Connection=True;TrustServerCertificate=True;
+dotnet run --project 06-rag/LocalRag -- --embed ollama --store sqlserver
 ```
+
+If Ollama is bound on another NIC, add `--ollama-url http://127.0.0.1:11434`.
 
 ## What you do next (not now)
 
