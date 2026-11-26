@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="01_localLLMChat/01_localLLMChat.csproj" />
+  <Project Path="02_embeddings/02_embeddings.csproj" />
+  <Project Path="02_LocalLLMWithLoop/02_LocalLLMWithLoop.csproj" />
+</Solution>
