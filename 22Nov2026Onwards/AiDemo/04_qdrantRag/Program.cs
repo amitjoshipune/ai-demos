@@ -80,7 +80,53 @@ namespace _04_qdrantRag
             Console.WriteLine("Ask a question. Empty line = quit.");
             Console.WriteLine();
 
+            while (true)
+            {
+                Console.Write("You: ");
+                string? question = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(question))
+                {
+                    break;
+                }
+
+                float[] query = (await embedder.GenerateAsync(question)).Vector.ToArray();
+
+                object searchBody = new
+                { 
+                    vector = query,
+                    limit = TopK,
+                    with_payload = true
+                };
+
+                using HttpResponseMessage search = await qdrant.PostAsJsonAsync(
+                    "collections/" + Collection + "/points/search",
+                    searchBody
+                    );
+                string json = await EnsureOk(search, "search");
+
+                List<Hit> hits = ReadHits(json);
+                Console.WriteLine();
+                Console.WriteLine("--- Qdrant retrieval (score = cosine; higher is closer) ---");
+
+            }// End of while loop
+
         }// End of Main
+
+        private static List<Hit> ReadHits(string json)
+        {
+            List<Hit> hits = new List<Hit>();
+            using JsonDocument doc = JsonDocument.Parse(json);
+            foreach (JsonElement item in doc.RootElement.GetProperty("result").EnumerateArray())
+            {
+                JsonElement payload = item.GetProperty("payload");
+                Hit hit = new Hit();
+                hit.ChunkId = payload.GetProperty("chunkId").GetString()??"";
+                hit.Text = payload.GetProperty("text").GetString()??"";
+                hit.Score = item.GetProperty("score").GetSingle();
+                hits.Add(hit);
+            }
+            return hits;
+        }
 
         private static string Preview(string text, int max)
         {
@@ -118,4 +164,11 @@ namespace _04_qdrantRag
             return json;
         }// End of EnsureOk
     }// End of class Program
+
+    internal class Hit
+    {
+        public string ChunkId = "";
+        public string Text = "";
+        public float Score;
+    }
 }// End of namespace _04_qdrantRag
