@@ -1,0 +1,229 @@
+Contoso employee handbook. Internal practice data for RAG. Not a real company policy.
+
+Contoso PTO: full-time employees get 18 vacation days per calendar year. Unused days do not roll over after 31 December.
+
+Contoso sick leave: employees get 10 paid sick days per year. A doctor's note is required after 3 consecutive sick days.
+
+Contoso work hours: office hours are 9:00 to 17:30 Monday to Friday. Core hours are 10:00 to 16:00 when meetings should be booked.
+
+Contoso remote Friday: remote Friday is allowed after 6 months of employment. Manager approval is still required for that Friday.
+
+Contoso hybrid policy: employees may work from home up to 2 days per week after probation. Monday and Thursday are in-office days for all teams.
+
+Contoso probation: new hires have a 3 month probation. During probation, remote work is not allowed except for documented medical reasons.
+
+Contoso laptops: every engineer gets a Dell laptop. Designers get a 16 inch MacBook Pro. Lost devices must be reported to IT within 4 hours.
+
+Contoso laptop refresh: laptops are replaced every 4 years. Early refresh needs IT director approval.
+
+Contoso monitors: each desk has two 27 inch monitors. A third monitor needs manager and IT approval.
+
+Contoso expenses: meals under 25 USD need no receipt. Meals of 25 USD or more need a GST invoice. Submit claims within 14 days.
+
+Contoso travel meals: travel meals are capped at 40 USD per day. Alcohol is not reimbursable.
+
+Contoso flights: domestic flights need manager approval before booking. International flights need director approval and 14 days notice.
+
+Contoso hotels: hotel cap is 120 USD per night in India and 180 USD per night overseas. Book through the Contoso travel portal only.
+
+Contoso taxis: airport taxis are reimbursable with a receipt. Daily commute is never reimbursable.
+
+Contoso parental leave: primary caregivers get 16 weeks paid leave. Secondary caregivers get 4 weeks paid leave. Notify HR 8 weeks before the due date.
+
+Contoso bereavement: 5 paid days for immediate family. 1 paid day for extended family. Immediate family means spouse, parent, child, or sibling.
+
+Contoso public holidays: Contoso observes India national holidays plus Maharashtra state holidays for the Pune office.
+
+Contoso Pune office: the Pune office is at Magarpatta, Tower B, floors 6 and 7. Reception opens at 8:30.
+
+Contoso parking: basement parking is first-come. Two-wheelers use B1. Cars use B2. Overnight parking needs security sign-off.
+
+Contoso visitors: visitors must be registered in the lobby app. An employee must escort visitors after 18:00.
+
+Contoso dress code: business casual Monday to Thursday. Team jersey Friday is allowed. Safety shoes are required in the lab.
+
+Contoso code of conduct: harassment of any kind is a terminate-on-investigation offence. Report to HR or the anonymous ethics line.
+
+Contoso ethics line: the ethics line number is 1800-555-0199. Reports can be anonymous. Retaliation against reporters is forbidden.
+
+Contoso salary review: compensation is reviewed every April. Off-cycle raises need VP approval.
+
+Contoso bonus: annual bonus target is 10 percent of base for ICs and 15 percent for managers. Bonus is paid in June.
+
+Contoso payroll: salary is paid on the last working day of the month. Payslips appear in Workday by 18:00 that day.
+
+Contoso PF and gratuity: Contoso contributes 12 percent PF on basic. Gratuity follows the Payment of Gratuity Act after 5 years.
+
+Contoso health insurance: GMC covers employee plus spouse plus 2 children. Parents can be added at employee cost during open enrolment in March.
+
+Contoso gym: Contoso reimburses 1500 INR per month for a gym with a GST invoice. Home gym equipment is not covered.
+
+Contoso learning budget: each employee gets 500 USD per year for courses. Certifications from Microsoft, AWS, and Oracle are pre-approved.
+
+Contoso conference travel: one conference per year if you have a talk accepted. Attendance-only needs director approval.
+
+Contoso on-call: production on-call is a weekly rotation. On-call stipend is 8000 INR per week. Pager response SLA is 15 minutes.
+
+Contoso severity 1: Sev-1 means customer-facing outage. Page the on-call and the incident commander. Public status page must update within 30 minutes.
+
+Contoso severity 2: Sev-2 means degraded service. Slack #incidents within 15 minutes. No public tweet without comms.
+
+Contoso passwords: minimum 14 characters. MFA is mandatory on email, GitHub, and VPN. Password sharing is a security incident.
+
+Contoso VPN: use the company WireGuard profile only. Split tunnel is disabled. Personal VPNs on the laptop are forbidden.
+
+Contoso GitHub: production repos require 2 approvals. Direct push to main is blocked. Secrets must go in GitHub Actions secrets, never in source.
+
+Contoso data classification: Public, Internal, Confidential, Restricted. Aadhaar, PAN, and payroll files are Restricted.
+
+Contoso USB: USB storage is blocked on engineer laptops. Exceptions need a 7-day IT ticket.
+
+Contoso Wi-Fi: staff SSID is Contoso-Corp. Guest SSID is Contoso-Guest and expires in 12 hours. Do not share Corp passwords.
+
+Contoso standup: engineering standup is 9:45 IST on Zoom. Cameras on. Keep updates to 60 seconds.
+
+Contoso sprint: sprints are 2 weeks. Sprint planning is Monday 11:00 IST. Retro is Friday 16:00 IST of week 2.
+
+Contoso definition of done: code, unit tests, PR review, and a changelog note. No ticket is done without a test.
+
+Contoso code freeze: no production deploys from 20 December to 2 January. Hotfix needs CTO written approval.
+
+Contoso backup: production databases are backed up every 6 hours. Restore tests run the first Sunday of each month.
+
+Contoso retention: application logs are kept 90 days. Audit logs are kept 7 years. Customer content follows the contract.
+
+Contoso DLP: do not paste customer data into ChatGPT, Copilot, or personal Gmail. Use only approved Contoso AI tools.
+
+Contoso AI tools: approved tools are GitHub Copilot Business and the internal RAG desk. Personal ChatGPT on work data is not approved.
+
+Contoso RAG desk: the internal RAG desk answers only from indexed Contoso handbooks. If the desk is unsure it must say it does not know.
+
+Contoso customer SLA: P1 response 15 minutes, P2 2 hours, P3 1 business day. P1 is 24x7 including holidays.
+
+Contoso support hours: L1 chat is 24x7. L2 India is 8:00 to 20:00 IST. L2 US is 9:00 to 18:00 Eastern.
+
+Contoso refunds: refunds under 50 USD can be issued by support. Refunds over 50 USD need finance. Chargebacks go to finance only.
+
+Contoso discounts: sales may discount up to 10 percent. 11 to 20 percent needs sales director. Above 20 percent needs CFO.
+
+Contoso contracts: standard MSA is 12 months. Auto-renew is 30 days notice. Legal must review any unlimited-liability clause.
+
+Contoso vendors: new vendors need a security questionnaire. Payment terms default to Net 30. Advances over 1 lakh INR need CFO.
+
+Contoso procurement: laptops only from the IT catalogue. Software over 500 USD needs a PO. Shadow IT is a policy violation.
+
+Contoso meeting rooms: Magarpatta rooms book in Outlook. Room Himalaya holds 12. Room Sahyadri holds 4. Food only in cafeteria.
+
+Contoso cafeteria: lunch is 80 INR with badge. Dinner after 19:30 is 100 INR. Guests pay at the counter, not on an employee badge.
+
+Contoso ID badge: lost badge must be reported to security in 2 hours. Replacement fee is 200 INR. Do not lend your badge.
+
+Contoso CCTV: cameras cover lobby, parking, and lab. Cameras do not cover desks or washrooms. Footage is kept 30 days.
+
+Contoso smoking: smoking and vaping only in the basement designated area. Fine is 500 INR billed to payroll.
+
+Contoso alcohol: no alcohol on campus. Client dinner alcohol is not reimbursed. Drunk driving in a company cab is a terminate offence.
+
+Contoso pets: no pets in the office except certified assistance animals with HR paperwork.
+
+Contoso notice period: ICs 30 days. Managers 60 days. Garden leave may apply for security-sensitive roles.
+
+Contoso garden leave: during garden leave you remain employed but do not access GitHub, Slack, or email. HR holds the laptop.
+
+Contoso moonlighting: paid outside work needs written HR approval. Competing products are never allowed.
+
+Contoso inventions: code written for Contoso is Contoso IP. Open source contributions need legal review if they reuse internal libraries.
+
+Contoso open source: Apache-2.0 and MIT are allowed. GPL code must not enter the product without legal sign-off.
+
+Contoso travel insurance: company travel insurance covers trips booked on the portal. Personal holiday add-ons are not covered.
+
+Contoso visa: business visa letters come from HR with 10 working days notice. Immigration lies are a terminate offence.
+
+Contoso relocation: India city relocation allowance is 50,000 INR. International relocation is a separate HR packet.
+
+Contoso WFH setup: one-time 15,000 INR for chair and monitor after probation. Keep receipts 3 years.
+
+Contoso electricity: WFH electricity is not reimbursed. Internet stipend is 1000 INR per month if you are hybrid or remote.
+
+Contoso time off in lieu: weekend Sev-1 work earns 1 TOIL day. Take it within 30 days or it lapses.
+
+Contoso volunteering: 2 paid volunteering days per year. Book via HR. Political campaigning is not volunteering.
+
+Contoso referral bonus: 25,000 INR for a hired IC. 40,000 INR for a hired manager. Paid after the referee completes 3 months.
+
+Contoso internships: internships are 8 to 16 weeks. Interns do not get GMC. Interns may not access production.
+
+Contoso background check: offer is contingent on a clean verification. Lying on the CV is a withdraw-offer event.
+
+Contoso attendance: 3 unexplained absences in 30 days is a written warning. 5 is a PIP.
+
+Contoso PIP: performance improvement plans last 60 days. HR and the manager must both sign. Termination after a failed PIP is with notice.
+
+Contoso grievances: raise first with the manager. If unresolved in 7 days, email hr-grievance@contoso.example. HR replies in 5 working days.
+
+Contoso equal opportunity: hiring does not discriminate on caste, religion, gender, disability, or sexual orientation. Diversity reports go to the board each September.
+
+Contoso accessibility: meeting decks need alt text. Videos need captions. Screen-reader bugs are P2.
+
+Contoso social media: do not disclose unreleased products. Personal opinions must say they are not Contoso's. Legal reviews exec posts.
+
+Contoso media: press goes through comms@contoso.example only. Engineers do not give interviews without comms on the call.
+
+Contoso phishing: report suspicious mail with the Outlook Report Phish button. IT never asks for your password on the phone.
+
+Contoso incident: if you click a bad link, disconnect Wi-Fi, call IT, and do not reboot until they say so.
+
+Contoso encryption: laptops use BitLocker. Confidential files in OneDrive, not USB. Restricted files in the Legal vault only.
+
+Contoso production access: break-glass accounts are vaulted. Using break-glass sends a Slack alert to #sec-ops. Explain in a ticket within 24 hours.
+
+Contoso change window: production changes Tuesday and Thursday 10:00 to 12:00 IST. Fridays are no-deploy except Sev-1.
+
+Contoso rollback: every deploy needs a documented rollback. If rollback is not tested, the change cannot ship.
+
+Contoso SLIs: API availability target is 99.9 percent monthly. Error budget spend over 50 percent pauses features for reliability work.
+
+Contoso onboarding: day 1 is laptop, badge, and handbook quiz. Day 3 is repo access. Production access is not granted in week 1.
+
+Contoso offboarding: laptop and badge return on last day. GitHub and Slack revoked at 17:00. HR exit interview is optional but recorded if you attend.
+
+Contoso emergency: Pune office assembly point is the Magarpatta lawn near Tower A. Fire wardens wear yellow caps. Do not use lifts.
+
+Contoso first aid: first aid kits are on floors 6 and 7 near the pantry. AED is at reception. Trained first-aiders are listed on the intranet.
+
+Contoso COVID: do not come to office with fever. Rapid tests are at reception. Isolation is 5 days or until fever-free for 24 hours.
+
+Contoso canteen allergy: nut dishes are labelled. Report allergies to cafeteria staff. Contoso is not a nut-free campus.
+
+Contoso library: the quiet room on floor 7 holds 8 people. No calls. Book 2 hours max.
+
+Contoso mentorship: every new hire gets a buddy for 90 days. Staff engineer mentorship is opt-in via the career form.
+
+Contoso promotion: ICs promote in April and October cycles. You need a packet, 2 peer letters, and skip-level sign-off.
+
+Contoso skip-level: skip-level 1:1s happen once a quarter. Bring a written agenda. Compensation is not discussed in skip-level.
+
+Contoso tools: Jira for work, Confluence for docs, Slack for chat, Zoom for meetings. WhatsApp is not an official work channel.
+
+Contoso WhatsApp: customer WhatsApp is only the official Business number owned by support. Personal WhatsApp for work data is forbidden.
+
+Contoso email retention: mailboxes are kept 3 years after exit. Do not use personal Gmail as a backup of work mail.
+
+Contoso calendar: block focus time. Meetings over 8 people need an agenda in the invite or attendees may decline.
+
+Contoso language: Pune office working language is English. Marathi and Hindi are welcome in the cafeteria. Customer tickets stay in English unless the customer writes otherwise.
+
+Contoso night shift: US-overlap shift is 13:30 to 22:00 IST. Night differential is 15 percent for those hours. Transport after 21:00 is a company cab.
+
+Contoso cab: late cab vendor is listed on the intranet. Share the PIN with reception. Do not share the PIN in public Slack.
+
+Contoso weather: red alert rain in Pune means WFH for the day. HR posts by 7:30 IST. Use the Magarpatta shuttle only if HR says campus is open.
+
+Contoso shuttle: Magarpatta shuttle from Hadapsar and Kharadi at 8:40 and 9:10. Return 18:15 and 19:00. Badge required.
+
+Contoso lost property: reception holds lost items 14 days. After that, unclaimed items go to the charity box.
+
+Contoso charity box: floor 6 pantry. No electronics, no food, no documents. IT must wipe devices before donation.
+
+Contoso version: this handbook is version 2026.11. If a Slack message conflicts with this handbook, the handbook wins until HR publishes a new version.

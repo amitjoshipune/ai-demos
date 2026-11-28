@@ -33,9 +33,30 @@ namespace _04_qdrantRag
                 "Contoso laptops: every engineer gets a Dell laptop. Lost devices must be reported to IT within 4 hours.\n\n" +
                 "Contoso expenses: meals under 25 USD need no receipt. Flights need manager approval before booking.";
 
+            string handbookPath = Path.Combine(AppContext.BaseDirectory,"data", "handbook.txt");
+            if (File.Exists(handbookPath))
+            {
+                handbook = File.ReadAllText(handbookPath);
+                Console.WriteLine("Handbook file: " + handbookPath);
+                Console.WriteLine("Characters: " + handbook.Length);
+            }
+            else
+            {
+                /*
+                throw new FileNotFoundException(
+                    "Missing handbook. Put it in the project data folder (not bin).",
+                    handbookPath);
+                */
+                Console.WriteLine("Warning: handbook.txt not found, using default text.");
+            }
+
             await ResetCollection(qdrant, 768);
 
+            handbook = handbook.Replace("\r\n", "\n").Replace("\r", "\n");
+
             string[] parts = handbook.Split(new[] { "\n\n" }, StringSplitOptions.RemoveEmptyEntries);
+            Console.WriteLine("Chunks: " + parts.Length);
+
             Console.WriteLine("Index: embed chunks, upsert into Qdrant collection '" + Collection + "'.");
             Console.WriteLine();
 
