@@ -53,8 +53,8 @@ namespace _04_qdrantRag
                 Console.WriteLine("]");
                 */
 
-                object body = new 
-                { 
+                object body = new
+                {
                     points = new[]
                     {
                         new
@@ -71,7 +71,7 @@ namespace _04_qdrantRag
                     body
                     );
 
-                await EnsureOk(upsert,"upsert point " + pointId);
+                await EnsureOk(upsert, "upsert point " + pointId);
                 Console.WriteLine("  stored c" + pointId + "  dim=" + vector.Length + "  " + Preview(text, 70));
             }// End of for loop over parts
 
@@ -92,7 +92,7 @@ namespace _04_qdrantRag
                 float[] query = (await embedder.GenerateAsync(question)).Vector.ToArray();
 
                 object searchBody = new
-                { 
+                {
                     vector = query,
                     limit = TopK,
                     with_payload = true
@@ -108,9 +108,53 @@ namespace _04_qdrantRag
                 Console.WriteLine();
                 Console.WriteLine("--- Qdrant retrieval (score = cosine; higher is closer) ---");
 
+                string context = "";
+                for (int i = 0; i < hits.Count; i++)
+                {
+                    Console.WriteLine(
+                        "  KEEP  " + hits[i].ChunkId +
+                        "  score=" + hits[i].Score.ToString("0.0000") +
+                        "  " + Preview(hits[i].Text, 60));
+
+                    if (i > 0)
+                    {
+                        context += "\n\n";
+                    }
+                    context += hits[i].Text;
+                }// end of for loop over hits to build context
+
+                List<ChatMessage> messages = new List<ChatMessage>();
+                messages.Add(new ChatMessage(ChatRole.System,
+                     "Answer only from CONTEXT. If the answer is not in CONTEXT, say you do not know. 2-3 short sentences."));
+
+                messages.Add(new ChatMessage(ChatRole.User,
+                   "CONTEXT:\n" + context + "\n\nQUESTION:\n" + question));
+
+                Dump("messages sent to llama3.2", messages);
+
+                try
+                {
+                    ChatResponse response = await chat.GetResponseAsync(messages);
+                    Console.WriteLine("AI [" + ChatRole.Assistant + "]: " + (response.Text ?? ""));
+                    Console.WriteLine();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Error occurred: " + ex.Message);
+                }
             }// End of while loop
 
         }// End of Main
+
+        private static void Dump(string title, List<ChatMessage> messages)
+        {
+            Console.WriteLine("--- " + title + " ---");
+            for (int i = 0; i < messages.Count; i++)
+            {
+                Console.WriteLine("  " + i + ": [" + messages[i].Role + "] " + Preview(messages[i].Text ?? "", 90));
+            }
+            Console.WriteLine("----------------------------");
+        }
 
         private static List<Hit> ReadHits(string json)
         {
@@ -120,8 +164,8 @@ namespace _04_qdrantRag
             {
                 JsonElement payload = item.GetProperty("payload");
                 Hit hit = new Hit();
-                hit.ChunkId = payload.GetProperty("chunkId").GetString()??"";
-                hit.Text = payload.GetProperty("text").GetString()??"";
+                hit.ChunkId = payload.GetProperty("chunkId").GetString() ?? "";
+                hit.Text = payload.GetProperty("text").GetString() ?? "";
                 hit.Score = item.GetProperty("score").GetSingle();
                 hits.Add(hit);
             }
